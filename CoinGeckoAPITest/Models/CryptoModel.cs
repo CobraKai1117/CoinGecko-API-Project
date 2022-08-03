@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+
+
 namespace CoinGeckoAPITest.Models
 {
     public class CryptoModel
@@ -12,6 +14,10 @@ namespace CoinGeckoAPITest.Models
 
         [JsonExtensionData]
         public Dictionary<string, JToken> Items { get; set; }
+
+        public List<String> comparisonCurrencies { get; set; }
+
+       
 
 
     }

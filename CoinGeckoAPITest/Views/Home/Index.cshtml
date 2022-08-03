@@ -4,6 +4,8 @@
 
 }
 
+
+
 <div>
     <h3 class="display-4"> Crypto Prices</h3>
     <center>
@@ -17,10 +19,12 @@
                     </td>
                     <td> Currency to Use:</td>
                     <td>
-                        <input type="text" id="txtCurrency" name="Currency"
+                        <!---<input type="text" id="txtCurrency" name="Currency" --->
+                        @Html.DropDownListFor(model => model.comparisonCurrencies, new SelectList(Model.comparisonCurrencies), "Please select a currency to compare", new { name="Currency", id="txtCurrency",input ="text", value = "btc"})
+
                     </td>
                     <td>
-                        <input type="submit" value="Submit"
+                        <input type="submit" value="Submit" />
                     </td>
                 </tr>
             </table>
@@ -34,6 +38,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th> Crypto Pair</th>
                     <th>Price</th>
                 </tr>
             </thead>
@@ -52,6 +57,8 @@
                     cryptoName = cryptoNameFirstChar + cryptoName;
 
                     string cryptoValue = crypto.Value.ToString();
+
+                  
 
                     <tr>
                         <th>@cryptoName</th>
