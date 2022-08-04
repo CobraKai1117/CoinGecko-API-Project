@@ -58,7 +58,13 @@
 
                     string cryptoValue = crypto.Value.ToString();
 
-                  
+                    cryptoValue = cryptoValue.Replace(":", "");
+                    cryptoValue = cryptoValue.Replace("\"", "");
+                    cryptoValue = cryptoValue.Replace("{", "");
+                    cryptoValue = cryptoValue.Replace("}", "");
+
+
+
 
                     <tr>
                         <th>@cryptoName</th>

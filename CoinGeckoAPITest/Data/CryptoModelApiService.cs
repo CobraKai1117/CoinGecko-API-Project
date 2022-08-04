@@ -7,6 +7,7 @@ using CoinGeckoAPITest.Models;
 using System.Text.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace CoinGeckoAPITest.Data
 {
@@ -14,7 +15,7 @@ namespace CoinGeckoAPITest.Data
     {
         private static readonly HttpClient client;
 
-        dynamic test;
+        dynamic deserializedResults;
 
         static CryptoModelApiService()
         {
@@ -38,9 +39,6 @@ namespace CoinGeckoAPITest.Data
             {
                 var stringResponse = await scResponse.Content.ReadAsStringAsync();
 
-
-
-                //returnedValue = JsonConvert.DeserializeObject<String>(stringResponse);
 
                 supportedCurrencies = JsonConvert.DeserializeObject<List<String>>(stringResponse);
             }
@@ -95,7 +93,7 @@ namespace CoinGeckoAPITest.Data
         {
             var url = string.Format("/api/v3/simple/price?ids={0}&vs_currencies={1}",cryptoName,currency);
 
-            var result = new CryptoModel();
+           CryptoModel result = new CryptoModel();
 
             var response = await client.GetAsync(url);
 
@@ -103,20 +101,17 @@ namespace CoinGeckoAPITest.Data
             {
                 var stringResponse = await response.Content.ReadAsStringAsync();
 
-                // result = JsonSerializer.Deserialize<List<CryptoModel>>(stringResponse, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+                deserializedResults = JsonConvert.DeserializeObject<CryptoModel>(stringResponse);
 
-               test = JsonConvert.DeserializeObject<CryptoModel>(stringResponse);
+                result = deserializedResults;
 
-
-                result = test;
-               
             }
 
             else { throw new HttpRequestException(response.ReasonPhrase); }
 
-            test.comparisonCurrencies = await GetSupportedCurrencies();
+            deserializedResults.comparisonCurrencies = await GetSupportedCurrencies();
 
-            return test;
+            return deserializedResults;
 
             
         }
