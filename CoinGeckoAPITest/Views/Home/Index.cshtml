@@ -20,7 +20,7 @@
                     <td> Currency to Use:</td>
                     <td>
                         <!---<input type="text" id="txtCurrency" name="Currency" --->
-                        @Html.DropDownListFor(model => model.comparisonCurrencies, new SelectList(Model.comparisonCurrencies), "Please select a currency to compare", new { name="Currency", id="txtCurrency",input ="text", value = "btc"})
+                        @Html.DropDownListFor(model => model.comparisonCurrencies, new SelectList(Model.comparisonCurrencies), "Please select a currency to compare", new { name="Currency", id="txtCurrency",input ="text"})
 
                     </td>
                     <td>
@@ -58,16 +58,9 @@
 
                     string cryptoValue = crypto.Value.ToString();
 
-                    cryptoValue = cryptoValue.Replace(":", "");
-                    cryptoValue = cryptoValue.Replace("\"", "");
-                    cryptoValue = cryptoValue.Replace("{", "");
-                    cryptoValue = cryptoValue.Replace("}", "");
-
-
-
-
                     <tr>
                         <th>@cryptoName</th>
+                        <th>@ViewBag.cryptoPair</th>
                         <th>@cryptoValue</th>
 
                      </tr>

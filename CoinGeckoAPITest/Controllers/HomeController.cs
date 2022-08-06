@@ -23,7 +23,12 @@ namespace CoinGeckoAPITest.Controllers
         public async Task<IActionResult> Index(string cryptoName, string currency)
         {
             CryptoModel cryptoModels = new CryptoModel();
-            if(cryptoName == null || cryptoName == " "|| currency == null || currency == " " ) { cryptoName = "Bitcoin"; currency = "usd"; }
+            if(cryptoName == null || cryptoName == " "|| currency == null || currency == " " ) { cryptoName = "Kusama"; currency = "btc"; }
+
+            string cryptoPair = cryptoName + "/" + currency.ToUpper();
+
+            ViewBag.cryptoPair = cryptoPair; // Passed to view, represents crypto/currency pair being compared
+
             cryptoModels = await _cryptoApiService.GetCryptos(cryptoName, currency);
 
             Dictionary<string, CryptoInformationModel> cryptoSearchResults;

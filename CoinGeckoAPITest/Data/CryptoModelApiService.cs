@@ -8,6 +8,9 @@ using System.Text.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
+
+
 
 namespace CoinGeckoAPITest.Data
 {
@@ -89,7 +92,7 @@ namespace CoinGeckoAPITest.Data
   
   
 
-        public async Task<CryptoModel> GetCryptos(string cryptoName,string currency)
+        public async Task<CryptoModel> GetCryptos(string cryptoName,string currency)  // Returns price of crypto based on currency being compared
         {
             var url = string.Format("/api/v3/simple/price?ids={0}&vs_currencies={1}",cryptoName,currency);
 
@@ -97,21 +100,40 @@ namespace CoinGeckoAPITest.Data
 
             var response = await client.GetAsync(url);
 
+
             if (response.IsSuccessStatusCode)
             {
+
                 var stringResponse = await response.Content.ReadAsStringAsync();
 
-                deserializedResults = JsonConvert.DeserializeObject<CryptoModel>(stringResponse);
+                JObject cryptoInfo = JObject.Parse(stringResponse); // used to convert JSON to CryptoModel
 
-                result = deserializedResults;
+                string cryptoValueFormat = cryptoInfo.GetValue(cryptoName.ToLower()).ToString(); // Used for proper formatting of output
+
+                Regex criteriaToReplace = new Regex("[]{}:;,\t\r]|[\n]{2}");
+
+               cryptoValueFormat = criteriaToReplace.Replace(cryptoValueFormat, "");
+
+                cryptoValueFormat = cryptoValueFormat.Replace("\"", "");
+
+                cryptoValueFormat = cryptoValueFormat.Replace(currency, "");
+
+                decimal cryptoPrice = Convert.ToDecimal(cryptoValueFormat);
+
+                if (currency == "usd") 
+                { cryptoValueFormat = cryptoPrice.ToString(cryptoPrice % 1 == 0 ? "C0" : "C");}
+
+                cryptoInfo[cryptoName.ToLower()] = cryptoValueFormat; // Sets value of JObject
+
+                result = cryptoInfo.ToObject<CryptoModel>();  // converts JObject to CryptoModel
 
             }
 
             else { throw new HttpRequestException(response.ReasonPhrase); }
 
-            deserializedResults.comparisonCurrencies = await GetSupportedCurrencies();
+            result.comparisonCurrencies = await GetSupportedCurrencies();
 
-            return deserializedResults;
+            return result;
 
             
         }
