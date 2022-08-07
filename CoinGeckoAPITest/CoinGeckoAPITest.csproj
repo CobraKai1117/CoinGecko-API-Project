@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CoinGeckoAsyncApi" Version="1.6.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 

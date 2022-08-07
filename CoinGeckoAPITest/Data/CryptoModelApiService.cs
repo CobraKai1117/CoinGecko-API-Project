@@ -32,8 +32,6 @@ namespace CoinGeckoAPITest.Data
         {
             var supportedCurrencyURL = string.Format("/api/v3/simple/supported_vs_currencies");
 
-            string returnedValue = "";
-
             List<String> supportedCurrencies = new List<String>();
 
             var scResponse = await client.GetAsync(supportedCurrencyURL);
@@ -92,11 +90,11 @@ namespace CoinGeckoAPITest.Data
   
   
 
-        public async Task<CryptoModel> GetCryptos(string cryptoName,string currency)  // Returns price of crypto based on currency being compared
+        public async Task<cryptoComparisonModel> GetCrypoPrice(string cryptoName,string currency)  // Returns price of crypto based on currency being compared
         {
             var url = string.Format("/api/v3/simple/price?ids={0}&vs_currencies={1}",cryptoName,currency);
 
-           CryptoModel result = new CryptoModel();
+           cryptoComparisonModel result = new cryptoComparisonModel();
 
             var response = await client.GetAsync(url);
 
@@ -125,13 +123,13 @@ namespace CoinGeckoAPITest.Data
 
                 cryptoInfo[cryptoName.ToLower()] = cryptoValueFormat; // Sets value of JObject
 
-                result = cryptoInfo.ToObject<CryptoModel>();  // converts JObject to CryptoModel
+                result = cryptoInfo.ToObject<cryptoComparisonModel>();  // converts JObject to CryptoModel
 
             }
 
             else { throw new HttpRequestException(response.ReasonPhrase); }
 
-            result.comparisonCurrencies = await GetSupportedCurrencies();
+            result.currency = await GetSupportedCurrencies();
 
             return result;
 

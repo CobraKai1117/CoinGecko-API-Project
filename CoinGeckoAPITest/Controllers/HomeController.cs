@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoinGeckoAPITest.Data;
 
+
 namespace CoinGeckoAPITest.Controllers
 {
     public class HomeController : Controller
@@ -22,16 +23,21 @@ namespace CoinGeckoAPITest.Controllers
 
         public async Task<IActionResult> Index(string cryptoName, string currency)
         {
-            CryptoModel cryptoModels = new CryptoModel();
-            if(cryptoName == null || cryptoName == " "|| currency == null || currency == " " ) { cryptoName = "Kusama"; currency = "btc"; }
+            cryptoComparisonModel cryptoModels = new cryptoComparisonModel(); // Used to hold comparision currencies such as USD and Ruble
+
+            if(cryptoName == null || cryptoName == " "|| currency == null || currency == " " ) { cryptoName = "Kusama"; currency = "usd"; } // Used for testing purposes and also to prevent a possible null exception
 
             string cryptoPair = cryptoName + "/" + currency.ToUpper();
 
             ViewBag.cryptoPair = cryptoPair; // Passed to view, represents crypto/currency pair being compared
 
-            cryptoModels = await _cryptoApiService.GetCryptos(cryptoName, currency);
+            cryptoModels = await _cryptoApiService.GetCrypoPrice(cryptoName, currency);
 
             Dictionary<string, CryptoInformationModel> cryptoSearchResults;
+
+            List<string> comparisonCurrencyList = await _cryptoApiService.GetSupportedCurrencies();
+
+            ViewBag.comparisionCurrencyList = comparisonCurrencyList;
 
             cryptoSearchResults = await _cryptoApiService.GetCryptoInformation();
 

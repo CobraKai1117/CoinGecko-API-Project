@@ -1,4 +1,4 @@
-﻿@model CryptoModel
+﻿@model cryptoComparisonModel
 @{
     ViewData["Title"] = "Home Page";
 
@@ -9,18 +9,19 @@
 <div>
     <h3 class="display-4"> Crypto Prices</h3>
     <center>
-        <form asp-controller="Home" asp-action="Index">
+        <form asp-controller="Home" asp-action="Index" method="get">
             <table>
                 <tr>
                     <td>Crypto Name
                     <td>
                     <td>
-                        <input type="text" id="txtCryptoPrice" name="CryptoName"
+                        <input type="text" id="txtCryptoPrice" name="CryptoName" />
                     </td>
                     <td> Currency to Use:</td>
                     <td>
-                        <!---<input type="text" id="txtCurrency" name="Currency" --->
-                        @Html.DropDownListFor(model => model.comparisonCurrencies, new SelectList(Model.comparisonCurrencies), "Please select a currency to compare", new { name="Currency", id="txtCurrency",input ="text"})
+                        <input type="submit" />
+
+                        @Html.DropDownListFor(model => model.currency, new SelectList(Model.currency), "Please select a currency to compare", new { name = "Currency", id = "txtCurrency" });
 
                     </td>
                     <td>
