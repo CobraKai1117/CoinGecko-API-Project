@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace CoinGeckoAPITest.Models
 {
-    public class CryptoInformationModel
+    public class CryptoInformationModel // Model representing each individual crypto retrieved from API
     {
         [JsonProperty("id")]
         public string Id { get; set; }

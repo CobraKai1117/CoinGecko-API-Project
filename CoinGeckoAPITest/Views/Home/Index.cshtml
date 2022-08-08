@@ -19,9 +19,8 @@
                     </td>
                     <td> Currency to Use:</td>
                     <td>
-                        <input type="submit" />
 
-                        @Html.DropDownListFor(model => model.currency, new SelectList(Model.currency), "Please select a currency to compare", new { name = "Currency", id = "txtCurrency" });
+                        @Html.DropDownListFor(model => model.currency, new SelectList(Model.currency), "Please select a currency to compare", new { name = "Currency", id = "txtCurrency" })
 
                     </td>
                     <td>

@@ -43,9 +43,11 @@ namespace CoinGeckoAPITest.Controllers
 
 
             string result = cryptoModels.Items.Values.ToString();
-            
+
 
             return View(cryptoModels);
+
+
         }
 
         public IActionResult Privacy()
