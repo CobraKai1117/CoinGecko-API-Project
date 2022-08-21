@@ -8,7 +8,7 @@ namespace CoinGeckoAPITest.Data
 {
    public  interface ICryptoModelApiService
     {
-        Task<cryptoComparisonModel> GetCrypoPrice(string cryptoName, string currency);
+        Task<cryptoComparisonModel> GetCryptos(string cryptoName, string currency);
 
         Task<List<String>> GetSupportedCurrencies();
 

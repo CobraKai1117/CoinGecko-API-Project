@@ -25,13 +25,13 @@ namespace CoinGeckoAPITest.Controllers
         {
             cryptoComparisonModel cryptoModels = new cryptoComparisonModel(); // Used to hold comparision currencies such as USD and Ruble
 
-            if(cryptoName == null || cryptoName == " "|| currency == null || currency == " " ) { cryptoName = "Kusama"; currency = "usd"; } // Used for testing purposes and also to prevent a possible null exception
+            if(cryptoName == null || cryptoName == " "|| currency == null || currency == " " ) { cryptoName = "Kusama"; currency = "btc"; } // Used for testing purposes and also to prevent a possible null exception
 
             string cryptoPair = cryptoName + "/" + currency.ToUpper();
 
             ViewBag.cryptoPair = cryptoPair; // Passed to view, represents crypto/currency pair being compared
 
-            cryptoModels = await _cryptoApiService.GetCrypoPrice(cryptoName, currency);
+            cryptoModels = await _cryptoApiService.GetCryptos(cryptoName, currency);
 
             Dictionary<string, CryptoInformationModel> cryptoSearchResults;
 
@@ -43,11 +43,9 @@ namespace CoinGeckoAPITest.Controllers
 
 
             string result = cryptoModels.Items.Values.ToString();
-
+            
 
             return View(cryptoModels);
-
-
         }
 
         public IActionResult Privacy()
