@@ -67,12 +67,12 @@ namespace CoinGeckoAPITest.Data
 
                 Dictionary<string, CryptoInformationModel> cryptoContainer = new Dictionary<string, CryptoInformationModel>();
 
-                foreach (JObject crypto in cryptoInformation.Children<JObject>()) 
+                foreach (JObject crypto in cryptoInformation.Children<JObject>()) // Creates an Object to hold children of Array and loops through JArray containing full crypto list.
                 {
                     CryptoInformationModel cryptoAdded = new CryptoInformationModel();
 
 
-                    foreach (JProperty cryptoProperty in crypto.Properties()) 
+                    foreach (JProperty cryptoProperty in crypto.Properties())  // Loops through each coin and sorts object values based on properties.
                     {
                         if (cryptoProperty.Name == "id") { cryptoAdded.Id = (string)cryptoProperty.Value; }
                         if (cryptoProperty.Name == "symbol") { cryptoAdded.Symbol = (string)cryptoProperty.Value;}
@@ -80,7 +80,7 @@ namespace CoinGeckoAPITest.Data
 
                     }
 
-                    cryptoContainer.Add(cryptoAdded.Name,cryptoAdded);
+                    cryptoContainer.Add(cryptoAdded.Name,cryptoAdded); //Adds object to dictionary with its given name and the object itself.
                 }
 
                 return cryptoContainer;
