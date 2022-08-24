@@ -29,46 +29,24 @@
                 </tr>
             </table>
             <hr />
+            <script src="https://widgets.coingecko.com/coingecko-coin-ticker-widget.js"></script>
+            <coingecko-coin-ticker-widget coin-id=@ViewBag.cryptoName currency=@ViewBag.comparisonCurrency style="border-width:0" locale="en"></coingecko-coin-ticker-widget>
+
+
+
         </form>
     </center>
+
+    <br /><br />
 
     @if (Model != null && Model.Items.Count > 0)
     {
         <table class=" table table-bordered table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th> Crypto Pair</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
 
             <tbody>
 
-                @foreach (var crypto in Model.Items)
-
-                {
-
-                    string cryptoName = crypto.Key.ToString(); // Takes name of cryptocurrency being passed in and converts to string
-
-                    char cryptoNameFirstChar = cryptoName[0]; // gets first character of crypto name and gets it to lowercase
-                    cryptoNameFirstChar = Char.ToUpper(cryptoNameFirstChar);
-                    cryptoName = cryptoName.Remove(0, 1);
-                    cryptoName = cryptoNameFirstChar + cryptoName;
-
-                    string cryptoValue = crypto.Value.ToString();
-
-                    <tr>
-                        <th>@cryptoName</th>
-                        <th>@ViewBag.cryptoPair</th>
-                        <th>@cryptoValue</th>
-
-                     </tr>
-
-
-                }
-
-
+                <script src="https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js"></script>
+                <coingecko-coin-price-chart-widget coin-id=@ViewBag.cryptoName currency=@ViewBag.comparisonCurrency height="300" locale="en" color="#1bda5b"></coingecko-coin-price-chart-widget>
 
 
             </tbody>

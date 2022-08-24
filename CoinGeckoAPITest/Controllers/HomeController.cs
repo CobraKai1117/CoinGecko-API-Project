@@ -31,6 +31,10 @@ namespace CoinGeckoAPITest.Controllers
 
             ViewBag.cryptoPair = cryptoPair; // Passed to view, represents crypto/currency pair being compared
 
+            ViewBag.cryptoName = cryptoName;
+
+            ViewBag.comparisonCurrency = currency;
+
             cryptoModels = await _cryptoApiService.GetCryptos(cryptoName, currency);
 
             Dictionary<string, CryptoInformationModel> cryptoSearchResults;
