@@ -17,10 +17,10 @@
                     <td>
                         <input type="text" id="txtCryptoPrice" name="CryptoName" />
                     </td>
-                    <td> Currency to Use:</td>
+                    <td> Currency to Use:</td> 
                     <td>
 
-                        @Html.DropDownListFor(model => model.currency, new SelectList(Model.currency), "Please select a currency to compare", new { name = "Currency", id = "txtCurrency" })
+                       @Html.DropDownListFor(model => model.currency, new SelectList(Model.currency), "Please select a currency to compare", new { name = "Currency", id = "txtCurrency" })  <!--- Contains a drop down list of supported comparison currencies-->
 
                     </td>
                     <td>
@@ -39,7 +39,8 @@
 
     <br /><br />
 
-    @if (Model != null && Model.Items.Count > 0)
+    @if (Model != null && Model.Items.Count > 0) // If Crypto Result is found, Show Price Over Time Chart With Comparison Currency
+
     {
         <table class=" table table-bordered table-striped table-sm">
 
@@ -49,7 +50,7 @@
                 <coingecko-coin-price-chart-widget coin-id=@ViewBag.cryptoName currency=@ViewBag.comparisonCurrency height="300" locale="en" color="#1bda5b"></coingecko-coin-price-chart-widget>
 
 
-            </tbody>
+            </tbody> 
 
         </table>
 

@@ -28,7 +28,7 @@ namespace CoinGeckoAPITest.Data
             };
         }
 
-        public async Task<List<string>> GetSupportedCurrencies()
+        public async Task<List<string>> GetSupportedCurrencies() // Returns a list of supported comparison currencies
         {
             var supportedCurrencyURL = string.Format("/api/v3/simple/supported_vs_currencies");
 
@@ -40,10 +40,10 @@ namespace CoinGeckoAPITest.Data
 
             if (scResponse.IsSuccessStatusCode)
             {
-                var stringResponse = await scResponse.Content.ReadAsStringAsync();
+                var stringResponse = await scResponse.Content.ReadAsStringAsync(); // Represents JSON string being returned
 
 
-                supportedCurrencies = JsonConvert.DeserializeObject<List<String>>(stringResponse);
+                supportedCurrencies = JsonConvert.DeserializeObject<List<String>>(stringResponse); // Represents list of models generated from parsed JSON string
             }
 
             else { throw new HttpRequestException(scResponse.ReasonPhrase); }
